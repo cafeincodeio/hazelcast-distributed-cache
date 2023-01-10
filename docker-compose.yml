@@ -1,0 +1,24 @@
+version: "3.8"
+services:
+  hazelcast:
+    container_name: cafeincode-hazelcast
+    image: hazelcast/hazelcast:5.2.1
+    ports:
+    - "5701:5701"
+  management-center:
+    container_name: cafeincode-hazelcast-management
+    image: hazelcast/management-center:5.2.1
+    ports:
+    - "8080:8080"
+    environment:
+    - MC_DEFAULT_CLUSTER=dev
+    - MC_DEFAULT_CLUSTER_MEMBERS=hazelcast
+  mysql:
+    container_name: cafeincode-mysql
+    image: mysql:5.7
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_DATABASE: "cafeincode_schema"
+      MYSQL_ROOT_PASSWORD: "123456789"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
